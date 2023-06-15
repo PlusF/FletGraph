@@ -1,0 +1,5 @@
+flet
+matplotlib
+numpy
+pandas
+git+https://github.com/PlusF/DataLoader
