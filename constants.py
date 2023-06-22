@@ -12,7 +12,7 @@ CONDITION = {
 }
 
 CMAPS = [
-    'gnuplot', 'viridis', 'plasma', 'inferno', 'magma', 'cividis', 'hsv', 'twilight', 'turbo',
+    'gnuplot', 'viridis', 'plasma', 'magma', 'cividis', 'hsv', 'twilight', 'turbo',
     'hot', 'binary', 'bone', 'cool', 'coolwarm', 'copper', 'gray', 'pink', 'jet',
     'spring', 'summer', 'autumn', 'winter',
     'RdBu', 'Spectral', 'Wistia', 'CMRmap',

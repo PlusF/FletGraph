@@ -50,14 +50,13 @@ def create_graph_view(
     cmap = ft.Ref[ft.Dropdown]()
 
     def draw(e=None):
-        print(graph_settings)
         if e is not None:  # スイッチの変更があったとき
             graph_settings['normalization'] = normalization.current.value
             graph_settings['cosmic_ray_removal'] = cosmic_ray_removal.current.value
             graph_settings['smoothing'] = smoothing.current.value
             graph_settings['label_size'] = int(label_size.current.value)
             graph_settings['tick_size'] = int(tick_size.current.value)
-            graph_settings['cmap'] = plt.get_cmap(cmap.current.value)
+            graph_settings['cmap'] = cmap.current.value
         # プロット
         ax.clear()
         for i, index in enumerate(selected_indices):
@@ -75,7 +74,7 @@ def create_graph_view(
                     y /= y.max()
             ax.plot(1240 / x, y,
                     label=f'{env}/{nd}%/{cond}',
-                    color=graph_settings['cmap'](i / len(selected_indices)))
+                    color=plt.get_cmap(graph_settings['cmap'])(i / len(selected_indices)))
         ax.set_xlabel('Energy [eV]', fontsize=graph_settings['label_size'])
         ax.set_ylabel('Intensity [arb. units]', fontsize=graph_settings['label_size'])
         ticks, labels = calc_tick_from_range(*ax.get_xlim())

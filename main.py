@@ -34,7 +34,7 @@ def main(page: ft.Page):
         'smoothing': False,
         'label_size': 30,
         'tick_size': 20,
-        'cmap': plt.get_cmap(CMAPS[0])
+        'cmap': CMAPS[0]
     }
     df = get_df()
     selected_indices = [0]
