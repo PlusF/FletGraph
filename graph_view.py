@@ -45,6 +45,9 @@ def create_graph_view(
     cosmic_ray_removal = ft.Ref[ft.Switch]()
     smoothing = ft.Ref[ft.Switch]()
 
+    min_x = ft.Ref[ft.TextField]()
+    max_x = ft.Ref[ft.TextField]()
+
     label_size = ft.Ref[ft.TextField]()
     tick_size = ft.Ref[ft.TextField]()
     cmap = ft.Ref[ft.Dropdown]()
@@ -54,6 +57,8 @@ def create_graph_view(
             graph_settings['normalization'] = normalization.current.value
             graph_settings['cosmic_ray_removal'] = cosmic_ray_removal.current.value
             graph_settings['smoothing'] = smoothing.current.value
+            graph_settings['min_x'] = float(min_x.current.value)
+            graph_settings['max_x'] = float(max_x.current.value)
             graph_settings['label_size'] = int(label_size.current.value)
             graph_settings['tick_size'] = int(tick_size.current.value)
             graph_settings['cmap'] = cmap.current.value
@@ -61,6 +66,9 @@ def create_graph_view(
         ax.clear()
         for i, index in enumerate(selected_indices):
             env, nd, cond, filename, x, y = df.loc[index]
+            x = 1240 / x
+            draw_range = (graph_settings['min_x'] < x) & (x < graph_settings['max_x'])
+            x, y = x[draw_range], y[draw_range]
             if graph_settings['normalization']:
                 y = y - y.min()
                 y /= y.max()
@@ -72,12 +80,13 @@ def create_graph_view(
                 if graph_settings['normalization']:
                     y = y - y.min()
                     y /= y.max()
-            ax.plot(1240 / x, y,
+            ax.plot(x, y,
                     label=f'{env}/{nd}%/{cond}',
                     color=plt.get_cmap(graph_settings['cmap'])(i / len(selected_indices)))
         ax.set_xlabel('Energy [eV]', fontsize=graph_settings['label_size'])
         ax.set_ylabel('Intensity [arb. units]', fontsize=graph_settings['label_size'])
-        ticks, labels = calc_tick_from_range(*ax.get_xlim())
+        ax.set_xlim(graph_settings['min_x'], graph_settings['max_x'])
+        ticks, labels = calc_tick_from_range(graph_settings['min_x'], graph_settings['max_x'])
         ax.set_xticks(ticks=ticks)
         ax.set_xticklabels(labels=labels, fontsize=graph_settings['tick_size'])
         ax.set_yticks([])
@@ -111,6 +120,10 @@ def create_graph_view(
                     ft.Switch(ref=normalization, label='Normalize', value=graph_settings['normalization'], on_change=draw),
                     ft.Switch(ref=cosmic_ray_removal, label='Remove Cosmic Ray', value=graph_settings['cosmic_ray_removal'], on_change=draw),
                     ft.Switch(ref=smoothing, label='Smooth', value=graph_settings['smoothing'], on_change=draw)
+                ]),
+                ft.Column([
+                    ft.TextField(ref=min_x, label='Min x', value=str(graph_settings['min_x']), on_change=draw),
+                    ft.TextField(ref=max_x, label='Max x', value=str(graph_settings['max_x']), on_change=draw)
                 ]),
                 ft.Column([
                     ft.TextField(ref=label_size, label='Label Size', value=str(graph_settings['label_size']), on_change=draw),

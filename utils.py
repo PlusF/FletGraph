@@ -42,7 +42,7 @@ def calc_tick_from_range(xmin, xmax):
     xmin *= 10
     xmax *= 10
     xmin = np.ceil(xmin)
-    xmax = np.ceil(xmax)
+    xmax = np.ceil(xmax) + 1e-10
     ticks = np.arange(xmin, xmax) / 10
     labels = (f'{t:.01f}' for t in ticks)
     return ticks, labels

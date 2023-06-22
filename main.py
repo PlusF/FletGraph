@@ -32,6 +32,8 @@ def main(page: ft.Page):
         'normalization': False,
         'cosmic_ray_removal': False,
         'smoothing': False,
+        'min_x': 2.0,
+        'max_x': 2.5,
         'label_size': 30,
         'tick_size': 20,
         'cmap': CMAPS[0]
