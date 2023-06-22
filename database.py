@@ -6,7 +6,7 @@ from constants import ENVIRONMENT, CONDITION
 def get_df():
     directory = r'C:\Users\rkane\Documents\data_Rayleigh'
     # env:   0: Air,                   1: Vacuum,               2: Water
-    # cond:  0: before water exposure, 1: after water exposure, 2: in water, 3: after baking
+    # cond:  0: before water exposure, 1: after water exposure, 2: in water, 3: after baking, 4: unknown
     data = {
         r'\230524\sif\1_560_air_1684930195.4375477_1684998589.5986567.asc': {
             'env': 0,
@@ -130,6 +130,41 @@ def get_df():
             'ND': 50,
             'cond': 3,
         },  # Air, 50%, after baking
+        r'\230622\center+right_Vac_32_1687422984.2253156.asc': {
+            'env': 1,
+            'ND': 32,
+            'cond': 4,
+        },  # Vacuum, 32%, after baking
+        r'\230622\Vac_5_1687422984.2531304.asc': {
+            'env': 1,
+            'ND': 5,
+            'cond': 4,
+        },  # Vacuum, 5%, after baking
+        r'\230622\Vac_10_1687422984.278133.asc': {
+            'env': 1,
+            'ND': 10,
+            'cond': 4,
+        },  # Vacuum, 10%, after baking
+        r'\230622\Vac_50_1687422984.2970526.asc': {
+            'env': 1,
+            'ND': 50,
+            'cond': 4,
+        },  # Vacuum, 50%, after baking
+        r'\230622\Water_5_1687422984.3127966.asc': {
+            'env': 2,
+            'ND': 5,
+            'cond': 2,
+        },  # Water, 5%, in water
+        r'\230622\Water_10_1687422984.1751206.asc': {
+            'env': 2,
+            'ND': 10,
+            'cond': 2,
+        },  # Water, 10%, in water
+        r'\230622\Water_32_1687422984.1981058.asc': {
+            'env': 2,
+            'ND': 32,
+            'cond': 2,
+        },  # Water, 32%, in water
     }
     data_fullpath = {}
     for key, value in data.items():

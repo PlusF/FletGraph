@@ -8,11 +8,12 @@ CONDITION = {
     1: 'after water exposure',
     2: 'in water',
     3: 'after baking',
+    4: '-',
 }
 
 CMAPS = [
     'gnuplot', 'viridis', 'plasma', 'inferno', 'magma', 'cividis', 'hsv', 'twilight', 'turbo',
-    'hot', 'binary', 'bone', 'cool', 'coolwarm', 'copper', 'gray', 'pink', 'jet', 'nipy_spectral'
+    'hot', 'binary', 'bone', 'cool', 'coolwarm', 'copper', 'gray', 'pink', 'jet',
     'spring', 'summer', 'autumn', 'winter',
     'RdBu', 'Spectral', 'Wistia', 'CMRmap',
     'cubehelix', 'brg', 'bwr',

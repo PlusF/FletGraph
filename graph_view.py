@@ -50,6 +50,7 @@ def create_graph_view(
     cmap = ft.Ref[ft.Dropdown]()
 
     def draw(e=None):
+        print(graph_settings)
         if e is not None:  # スイッチの変更があったとき
             graph_settings['normalization'] = normalization.current.value
             graph_settings['cosmic_ray_removal'] = cosmic_ray_removal.current.value
@@ -108,9 +109,9 @@ def create_graph_view(
         ft.Row(
             [
                 ft.Column([
-                    ft.Switch(ref=normalization, label='Normalize', on_change=draw),
-                    ft.Switch(ref=cosmic_ray_removal, label='Remove Cosmic Ray', on_change=draw),
-                    ft.Switch(ref=smoothing, label='Smooth', on_change=draw)
+                    ft.Switch(ref=normalization, label='Normalize', value=graph_settings['normalization'], on_change=draw),
+                    ft.Switch(ref=cosmic_ray_removal, label='Remove Cosmic Ray', value=graph_settings['cosmic_ray_removal'], on_change=draw),
+                    ft.Switch(ref=smoothing, label='Smooth', value=graph_settings['smoothing'], on_change=draw)
                 ]),
                 ft.Column([
                     ft.TextField(ref=label_size, label='Label Size', value=str(graph_settings['label_size']), on_change=draw),
@@ -118,7 +119,7 @@ def create_graph_view(
                 ]),
                 ft.Dropdown(ref=cmap,
                             options=[ft.dropdown.Option(name) for name in CMAPS]
-                            , label='Color Map', value=CMAPS[0], on_change=draw),
+                            , label='Color Map', value=graph_settings['cmap'], on_change=draw),
                 button_save
             ],
             spacing=50,
